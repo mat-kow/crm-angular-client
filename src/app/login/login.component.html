@@ -1,0 +1,12 @@
+<h2>Wyloguj się</h2>
+<button (click)="logout()">Wyloguj</button>
+<h2>Zaloguj się</h2>
+<div>
+  <label for="username">Nazwa użytkownika</label>
+  <input id="username" #username>
+  <label for="password">Hasło</label>
+  <input id="password" #password type="password">
+  <button class="add-button" (click)="login(username.value, password.value); username.value=''; password.value=''">
+    Wyślij
+  </button>
+</div>
