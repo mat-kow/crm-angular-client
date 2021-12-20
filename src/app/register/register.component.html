@@ -1,1 +1,65 @@
-<p>register works!</p>
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Rejestracja</h1>
+    <h3 [hidden]="!registerError" class="alert alert-danger">
+      Użytkownik istnieje
+    </h3>
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-group">
+        <label for="username">Nazwa użytkownika</label>
+        <input type="text" class="form-control" id="username"
+               required
+               [(ngModel)]="model.username" name="username"
+               #username="ngModel">
+        <div [hidden]="username.valid || username.pristine"
+             class="alert alert-danger">
+          Nazwa użytkownika jest wymagana
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="firstname">Imię</label>
+        <input type="text" class="form-control" id="firstname"
+               required
+               [(ngModel)]="model.firstname" name="firstname"
+               #firstname="ngModel">
+        <div [hidden]="firstname.valid || firstname.pristine"
+             class="alert alert-danger">
+          Imię jest wymagane
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Nazwisko</label>
+        <input type="text" class="form-control" id="lastname"
+               required
+               [(ngModel)]="model.lastname" name="lastname"
+               #lastname="ngModel">
+        <div [hidden]="lastname.valid || lastname.pristine"
+             class="alert alert-danger">
+          Nazwisko jest wymagane
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Hasło</label>
+        <input type="password" class="form-control" id="password"
+               required
+               [(ngModel)]="model.password" name="password"
+               #password="ngModel">
+        <div [hidden]="password.valid || password.pristine"
+             class="alert alert-danger">
+          Hasło jest wymagane
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid"
+              (keydown.enter)="newUser()" (click)="newUser()">Wyślij</button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h3>Pomyślnie dodano użytkownika</h3>
+  </div>
+
+</div>
