@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectComponent } from './project/project.component';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ProjectComponent } from './project/project.component';
     RegisterComponent,
     ProjectFormComponent,
     ProjectComponent,
+    UserSearchComponent,
   ],
   imports: [
     BrowserModule,

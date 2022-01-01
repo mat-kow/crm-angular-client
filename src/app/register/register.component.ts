@@ -9,7 +9,7 @@ import {UserService} from "../service/user.service";
 })
 export class RegisterComponent implements OnInit {
 
-  model = new User("", "", "", "")
+  model = new User("", "", "", "", -1)
   submitted = false;
   registerError = false;
 

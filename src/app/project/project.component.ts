@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../service/project.service";
 import {Project} from "../Project";
 import {ActivatedRoute} from "@angular/router";
+import {User} from "../user";
 
 @Component({
   selector: 'app-project',
@@ -10,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProjectComponent implements OnInit {
   project?: Project;
+  viewUserSearch = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class ProjectComponent implements OnInit {
   getProject() {
     const projectId = Number(this.route.snapshot.paramMap.get('id'));
     this.projectService.getProject(projectId).subscribe(project => this.project = project);
+
   }
 
   saveChanges() {
@@ -34,6 +37,17 @@ export class ProjectComponent implements OnInit {
   setActive(active: boolean) {
     if (this.project) {
       this.project.active = active;
+    }
+  }
+
+  setViewSearch(view: boolean) {
+    this.viewUserSearch = view;
+  }
+
+  addUserToList(user: User) {
+    // @ts-ignore
+    if (!this.project.users.includes(user)) {
+      this.project?.users.push(user)
     }
   }
 }

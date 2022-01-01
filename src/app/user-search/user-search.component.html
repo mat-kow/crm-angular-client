@@ -1,0 +1,25 @@
+<div class="container">
+  <div>
+    <form>
+      <label for="query">Szukaj:</label>
+      <input type="text" name="query" id="query" [(ngModel)]="query">
+      <button type="submit" class="btn btn-success" [disabled]="query.trim().length<3"
+              (keydown.enter)="sendQuery()" (click)="sendQuery()">Wyślij</button>
+    </form>
+  </div>
+
+  <div class="query-result" *ngIf="sent">
+    <div *ngIf="result">
+      <ul>
+        <li *ngFor="let user of result">
+          {{user.username}} {{user.firstname}} {{user.lastname}}
+          <button (click)="addNewUser(user)">+</button>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="!result">
+      <h4>Nic nie znaleziono</h4>
+    </div>
+
+  </div>
+</div>
