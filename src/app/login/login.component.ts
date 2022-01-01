@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.authService.setCredentials(username.trim(), password.trim());
     this.authService.authenticate().subscribe(isCredentialsRight => {
       if (isCredentialsRight) {
-        this.authService.authenticated = true;
+        // this.authService.authenticated = true;
         this.goBack();
       }
     });

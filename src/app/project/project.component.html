@@ -1,0 +1,56 @@
+<div class="container">
+  <div *ngIf="project">
+    <div>
+      <form (ngSubmit)="saveChanges()" #projectForm="ngForm">
+        <div class="form-group">
+          <label for="name">Nazwa</label>
+          <input type="text" class="form-control" id="name"
+                 required
+                 [(ngModel)]="project.name" name="name">
+        </div>
+        <div>
+          <div *ngIf="project.active">
+            <span>Aktywny</span>
+            <button type="button" class="btn btn-default" (click)="setActive(false);">Deaktywuj</button>
+          </div>
+          <div *ngIf="!project.active">
+            <span>Nie aktywny</span>
+            <button type="button" class="btn btn-default" (click)="setActive(true);">Aktywuj</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Opis</label>
+          <input type="text" class="form-control" id="description"
+                 [(ngModel)]="project.description" name="description">
+        </div>
+
+        <div class="form-group">
+          <label for="site">Strona www</label>
+          <input type="text" class="form-control" id="site"
+                 [(ngModel)]="project.site" name="site">
+        </div>
+
+        <button type="button" class="btn btn-default" (click)="saveChanges();">Zapisz zmiany</button>
+      </form>
+    </div>
+
+  </div>
+  <div *ngIf="!project">
+    <h3>Nie znaleziono projektu</h3>
+  </div>
+</div>
+
+
+<!--<div class="form-group">-->
+<!--  <label for="power">Hero Power</label>-->
+<!--  <select class="form-control" id="power"-->
+<!--          required-->
+<!--          [(ngproject)]="project.power" name="power"-->
+<!--          #power="ngproject">-->
+<!--    <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>-->
+<!--  </select>-->
+<!--  <div [hidden]="power.valid || power.pristine" class="alert alert-danger">-->
+<!--    Power is required-->
+<!--  </div>-->
+<!--</div>-->

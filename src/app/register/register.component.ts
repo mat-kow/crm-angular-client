@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
   }
 
-  newUser(): void {
+  newProject(): void {
     this.userService.createNewUser(this.model).subscribe(isRegSuccess => {
       this.submitted = isRegSuccess;
       this.registerError = !isRegSuccess;

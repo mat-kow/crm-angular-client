@@ -1,1 +1,7 @@
 <h1>{{message}}</h1>
+
+<ul *ngIf="projects">
+  <li *ngFor="let project of projects">
+    <a routerLink="/project/{{project.id}}">{{project.name}}</a>
+  </li>
+</ul>
