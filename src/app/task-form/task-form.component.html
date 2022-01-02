@@ -1,0 +1,52 @@
+<div class="container">
+  <h1>Nowe zadanie do projektu {{project.name}}</h1>
+  <form #taskForm="ngForm">
+    <div class="form-group">
+      <label for="topic">Temat</label>
+      <input type="text" class="form-control" id="topic"
+             required
+             [(ngModel)]="model.topic" name="topic"
+             #topic="ngModel">
+      <div [hidden]="topic.valid || topic.pristine" class="alert alert-danger">
+        Temat jest wymagany
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Opis</label>
+      <input type="text" class="form-control" id="description"
+             [(ngModel)]="model.description" name="description">
+    </div>
+
+    <div class="form-group">
+      <input type="hidden" id="project" name="project" [(ngModel)]="model.projectId" value="{{project.id}}">
+    </div>
+
+    <div class="form-group">
+      <label for="priorityName">Priorytet</label>
+      <select class="form-control" id="priorityName"
+              required
+              ([ngModel])="model.priorityName" name="priorityName"
+              #priorityName>
+        <option *ngFor="let priority of priorities" [value]="priority">{{priority}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="userId">Wykonawca</label>
+      <select class="form-control" id="userId"
+              required
+              ([ngModel])="model.userId" name="userId"
+              #userId>
+        <option *ngFor="let user of project.users" [value]="user.id">{{user.username}}</option>
+      </select>
+    </div>
+
+
+    <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid"
+            (keydown.enter)="createNewTask(priorityName.value, userId.value)"
+            (click)="createNewTask(priorityName.value, userId.value)">Wyślij
+    </button>
+  </form>
+  <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
+</div>

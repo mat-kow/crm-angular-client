@@ -62,6 +62,11 @@
         <button type="button" class="btn btn-default" (click)="saveChanges();">Zapisz zmiany</button>
       </form>
     </div>
+    <br/>
+<!--    tasks-->
+    <div>
+      <button (click)="newTask(project.id)">Dodaj zadanie</button>
+    </div>
   </div>
   <div *ngIf="!project">
     <h3>Nie znaleziono projektu</h3>

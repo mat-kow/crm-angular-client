@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../service/project.service";
 import {Project} from "../Project";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../user";
 
 @Component({
@@ -15,7 +15,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +26,6 @@ export class ProjectComponent implements OnInit {
   getProject() {
     const projectId = Number(this.route.snapshot.paramMap.get('id'));
     this.projectService.getProject(projectId).subscribe(project => this.project = project);
-
   }
 
   saveChanges() {
@@ -49,5 +49,10 @@ export class ProjectComponent implements OnInit {
     if (!this.project.users.includes(user)) {
       this.project?.users.push(user)
     }
+  }
+
+  newTask(projectId: number) {
+    // @ts-ignore
+    this.router.navigate([`/project/${projectId}/task`])
   }
 }

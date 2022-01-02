@@ -24,7 +24,6 @@ export class AuthService {
     this.password = password;
     this.cookieService.set('username', username)
     this.cookieService.set('password', password)
-    console.log('zapisuje credentiale')
   }
 
   logout(): void {
@@ -37,7 +36,6 @@ export class AuthService {
 
   authenticate(): Observable<boolean> {
     const loginUrl = this.variables.hostUrl + '/api/login';
-    console.log('authentykacja')
     return this.http.get<boolean>(loginUrl, this.getAuthHeader());
   }
 
@@ -45,7 +43,6 @@ export class AuthService {
     let headerDict = {
       'authorization': 'Basic ' + btoa(`${this.cookieService.get('username')}:${this.cookieService.get('password')}`),
     }
-    console.log('daje header')
     return {
       headers: new HttpHeaders(headerDict),
     };

@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectComponent } from './project/project.component';
 import { UserSearchComponent } from './user-search/user-search.component';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
     ProjectFormComponent,
     ProjectComponent,
     UserSearchComponent,
+    TaskFormComponent,
   ],
   imports: [
     BrowserModule,
