@@ -1,0 +1,59 @@
+<div class="container">
+  <div *ngIf="task">
+    <div class="form">
+      Zadanie utworzone {{task.createdAt}}
+      <form #taskForm="ngForm">
+<!--        topic-->
+        <div class="form-group">
+          <label for="topic">Temat</label>
+          <input type="text" class="form-control" id="topic"
+                 required
+                 [(ngModel)]="task.topic" name="name">
+        </div>
+<!--        description-->
+        <div class="form-group">
+          <label for="description">Opis</label>
+          <input type="text" class="form-control" id="description"
+                 [(ngModel)]="task.description" name="description">
+        </div>
+<!--        status-->
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" id="status"
+                  required
+                  ([ngModel])="task.status" name="status"
+                  #status>
+            <option *ngFor="let status of statusList" [value]="status"
+                    [selected]="task.status.name==status.name">{{status.name}}</option>
+          </select>
+        </div>
+
+<!--        priority-->
+        <div class="form-group">
+          <label for="priority">Priorytet</label>
+          <select class="form-control" id="priority"
+                  required
+                  ([ngModel])="task.priority" name="priority"
+                  #priority>
+            <option *ngFor="let priority of priorityList" [value]="priority"
+                    [selected]="task.priority.name==priority.name">{{priority.name}}</option>
+          </select>
+        </div>
+<!--        user-->
+        <div class="form-group">
+          <label for="user">Wykonuje</label>
+          <select class="form-control" id="user"
+                  required
+                  ([ngModel])="task.user" name="user"
+                  #user>
+            <option *ngFor="let user of task.project.users" [value]="user"
+                    [selected]="task.user.username==user.username">{{user.username}}</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-default" (click)="saveTask()">Zapisz</button>
+
+      </form>
+    </div>
+  </div>
+</div>

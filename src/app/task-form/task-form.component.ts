@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskForm} from "../TaskForm";
 import {PriorityService} from "../service/priority.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../service/project.service";
 import {TaskService} from "../service/task.service";
 import {Project} from "../Project";
@@ -25,7 +25,8 @@ export class TaskFormComponent implements OnInit {
     private priorityService: PriorityService,
     private projectService: ProjectService,
     private taskService: TaskService,
-    private location: Location
+    private location: Location,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +37,7 @@ export class TaskFormComponent implements OnInit {
   createNewTask(priorityName: string, userId: string) {
     this.model.priorityName = priorityName;
     this.model.userId = Number(userId);
-    this.taskService.createTask(this.model).subscribe();
+    this.taskService.createTask(this.model).subscribe(task => this.router.navigate([`/project/${this.model.projectId}`]));
   }
 
   getProject() {
@@ -48,8 +49,9 @@ export class TaskFormComponent implements OnInit {
   }
 
   getPriorities() {
-    this.priorityService.getPriorities().subscribe(priorities => this.priorities = priorities);
+    this.priorityService.getPrioritiesNames().subscribe(priorities => this.priorities = priorities);
   }
+
 
   goBack(): void {
     this.location.back()

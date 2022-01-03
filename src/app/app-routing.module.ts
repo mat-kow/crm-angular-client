@@ -6,6 +6,7 @@ import {RegisterComponent} from "./register/register.component";
 import {ProjectFormComponent} from "./project-form/project-form.component";
 import {ProjectComponent} from "./project/project.component";
 import {TaskFormComponent} from "./task-form/task-form.component";
+import {TaskComponent} from "./task/task.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'index'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'project/new', component: ProjectFormComponent},
   {path: 'project/:id', component: ProjectComponent},
   {path: 'project/:id/task', component: TaskFormComponent},
+  {path: 'project/:projectId/task/:taskId', component: TaskComponent},
 ]
 
 @NgModule({

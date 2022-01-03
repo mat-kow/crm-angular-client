@@ -3,6 +3,8 @@ import {ProjectService} from "../service/project.service";
 import {Project} from "../Project";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../user";
+import {TaskService} from "../service/task.service";
+import {Task} from "../Task";
 
 @Component({
   selector: 'app-project',
@@ -12,19 +14,22 @@ import {User} from "../user";
 export class ProjectComponent implements OnInit {
   project?: Project;
   viewUserSearch = false;
+  tasks: Task[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    private taskService: TaskService,
   ) { }
 
   ngOnInit(): void {
-    this.getProject();
+    const projectId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getProject(projectId);
+    this.getTasks(projectId)
   }
 
-  getProject() {
-    const projectId = Number(this.route.snapshot.paramMap.get('id'));
+  getProject(projectId: number) {
     this.projectService.getProject(projectId).subscribe(project => this.project = project);
   }
 
@@ -54,5 +59,9 @@ export class ProjectComponent implements OnInit {
   newTask(projectId: number) {
     // @ts-ignore
     this.router.navigate([`/project/${projectId}/task`])
+  }
+
+  getTasks(projectId: number) {
+    this.taskService.getTaskListByProject(projectId).subscribe(tasks => this.tasks = tasks)
   }
 }

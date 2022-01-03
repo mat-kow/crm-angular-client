@@ -1,6 +1,6 @@
 <div class="container">
   <div *ngIf="project">
-    <div class="form">
+    <div class="form" *ngIf="project">
       <form #projectForm="ngForm">
         <div class="form-group">
           <label for="name">Nazwa</label>
@@ -66,10 +66,27 @@
 <!--    tasks-->
     <div>
       <button (click)="newTask(project.id)">Dodaj zadanie</button>
+      <div>
+        <table>
+          <tr>
+            <th>Temat</th>
+            <th>Opis</th>
+            <th>Wykonuje</th>
+            <th>Status</th>
+            <th>Priorytet</th>
+            <th>Data utworzenia</th>
+          </tr>
+          <tr *ngFor="let task of tasks">
+            <td><a routerLink="/project/{{project.id}}/task/{{task.id}}">{{task.topic}}</a></td>
+            <td>{{task.description}}</td>
+            <td>{{task.user.username}}</td>
+            <td>{{task.status.name}}</td>
+            <td>{{task.priority.name}}</td>
+            <td>{{task.createdAt | date:'YYYY-MM-dd HH:mm'}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-  <div *ngIf="!project">
-    <h3>Nie znaleziono projektu</h3>
   </div>
 </div>
 
