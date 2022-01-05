@@ -4,6 +4,7 @@ import {VariablesService} from "./variables.service";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {Status} from "../Status";
+import {StatusForm} from "../StatusForm";
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,21 @@ export class StatusService {
 
   getStatuses(): Observable<Status[]> {
     return this.http.get<Status[]>(this.statusUrl, this.auth.getAuthHeader());
+  }
+
+  createStatus(statusForm: StatusForm): Observable<Status> {
+    return this.http.post<Status>(this.statusUrl, statusForm, this.auth.getAuthHeader());
+  }
+
+  getAll(): Observable<Status[]> {
+    return this.http.get<Status[]>(this.statusUrl + '/all', this.auth.getAuthHeader());
+  }
+
+  getStatus(id: number): Observable<Status> {
+    return this.http.get<Status>(`${this.statusUrl}/${id}`, this.auth.getAuthHeader());
+  }
+
+  update(status: Status): Observable<Status> {
+    return this.http.put<Status>(`${this.statusUrl}/${status.id}`, status,this.auth.getAuthHeader())
   }
 }

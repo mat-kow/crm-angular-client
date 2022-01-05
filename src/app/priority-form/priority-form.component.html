@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="form">
+    <form #priorityForm="ngForm">
+      <div class="form-group">
+        <label for="name">Nazwa</label>
+        <input type="text" class="form-control" id="name"
+               required name="name"
+               #name>
+      </div>
+      <div class="form-group">
+        <label for="sortValue">Wartość sortowania</label>
+        <input type="number" class="form-control" id="sortValue"
+               required name="sortValue"
+               #sortValue>
+      </div>
+      <button type="submit" (click)="createStatus(name.value, sortValue.value)"
+              [disabled]="!priorityForm.form.valid">Zapisz</button>
+
+    </form>
+  </div>
+</div>

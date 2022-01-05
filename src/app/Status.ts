@@ -1,13 +1,10 @@
 export class Status {
-  id: number;
-  name: string;
-  active: boolean;
-  sortValue: number;
 
-  constructor(id: number, name: string, active: boolean, sortValue: number) {
-    this.id = id;
-    this.name = name;
-    this.active = active;
-    this.sortValue = sortValue;
+  constructor(
+    public id: number,
+    public name: string,
+    public active: boolean,
+    public sortingValue: number
+  ) {
   }
 }

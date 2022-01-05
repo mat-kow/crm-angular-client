@@ -7,13 +7,23 @@ import {ProjectFormComponent} from "./project-form/project-form.component";
 import {ProjectComponent} from "./project/project.component";
 import {TaskFormComponent} from "./task-form/task-form.component";
 import {TaskComponent} from "./task/task.component";
+import {AdminComponent} from "./admin/admin.component";
+import {StatusFormComponent} from "./status-form/status-form.component";
+import {PriorityFormComponent} from "./priority-form/priority-form.component";
+import {StatusComponent} from "./status/status.component";
+import {PriorityComponent} from "./priority/priority.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'index'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'index', component: HomePageComponent},
   {path: 'project/new', component: ProjectFormComponent},
+  {path: 'status/new', component: StatusFormComponent},
+  {path: 'status/:id', component: StatusComponent},
+  {path: 'priority/new', component: PriorityFormComponent},
+  {path: 'priority/:id', component: PriorityComponent},
   {path: 'project/:id', component: ProjectComponent},
   {path: 'project/:id/task', component: TaskFormComponent},
   {path: 'project/:projectId/task/:taskId', component: TaskComponent},

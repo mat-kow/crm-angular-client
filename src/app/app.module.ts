@@ -13,6 +13,11 @@ import { ProjectComponent } from './project/project.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskComponent } from './task/task.component';
+import { AdminComponent } from './admin/admin.component';
+import { StatusFormComponent } from './status-form/status-form.component';
+import { PriorityFormComponent } from './priority-form/priority-form.component';
+import { StatusComponent } from './status/status.component';
+import { PriorityComponent } from './priority/priority.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { TaskComponent } from './task/task.component';
     UserSearchComponent,
     TaskFormComponent,
     TaskComponent,
+    AdminComponent,
+    StatusFormComponent,
+    PriorityFormComponent,
+    StatusComponent,
+    PriorityComponent,
   ],
   imports: [
     BrowserModule,

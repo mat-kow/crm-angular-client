@@ -29,7 +29,7 @@ export class AuthService {
   logout(): void {
     // this.authenticated = false;
     // this.setCredentials('', '')
-    this.cookieService.set('username', '')
+    this.cookieService.set('username', '')//todo JWT authentication
     this.cookieService.set('password', '')
 
   }

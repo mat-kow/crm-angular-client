@@ -1,0 +1,34 @@
+<div class="container">
+  <div *ngIf="status">
+    <form #statusForm="ngForm">
+      <!--        name-->
+      <div class="form-group">
+        <label for="name">Nazwa</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="status.name" name="name">
+      </div>
+      <!--        sortValue-->
+      <div class="form-group">
+        <label for="sortingValue">Wartośc sortowania</label>
+        <input type="number" class="form-control" id="sortingValue"
+               required
+               [(ngModel)]="status.sortingValue" name="sortingValue">
+      </div>
+      <!--          active-->
+      <div>
+        <div *ngIf="status.active">
+          <span>Aktywny</span>
+          <button type="button" class="btn btn-default" (click)="setActive(false);">Deaktywuj</button>
+        </div>
+        <div *ngIf="!status.active">
+          <span>Nie aktywny</span>
+          <button type="button" class="btn btn-default" (click)="setActive(true);">Aktywuj</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-default" (click)="update()">Zapisz</button>
+
+    </form>
+  </div>
+</div>

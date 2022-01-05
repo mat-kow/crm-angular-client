@@ -1,0 +1,35 @@
+<div class="container">
+  <div>
+    <h3>Statusy:</h3>
+    <a routerLink="/status/new">Dodaj</a>
+    <table>
+      <tr>
+        <th>Nazwa</th>
+        <th>Aktywne</th>
+        <th>Wartość sortowania</th>
+      </tr>
+      <tr *ngFor="let status of statuses">
+        <td><a routerLink="/status/{{status.id}}">{{status.name}}</a></td>
+        <td>{{status.active}}</td>
+        <td>{{status.sortingValue}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <h3>Priorytety:</h3>
+    <a routerLink="/priority/new">Dodaj</a>
+    <table>
+      <tr>
+        <th>Nazwa</th>
+        <th>Aktywne</th>
+        <th>Wartość sortowania</th>
+      </tr>
+      <tr *ngFor="let priority of priorities">
+        <td><a routerLink="/priority/{{priority.id}}">{{priority.name}}</a></td>
+        <td>{{priority.active}}</td>
+        <td>{{priority.sortValue}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
