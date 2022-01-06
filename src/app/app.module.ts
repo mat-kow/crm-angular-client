@@ -18,6 +18,7 @@ import { StatusFormComponent } from './status-form/status-form.component';
 import { PriorityFormComponent } from './priority-form/priority-form.component';
 import { StatusComponent } from './status/status.component';
 import { PriorityComponent } from './priority/priority.component';
+import { SortDirective } from './directive/sort.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PriorityComponent } from './priority/priority.component';
     PriorityFormComponent,
     StatusComponent,
     PriorityComponent,
+    SortDirective,
   ],
   imports: [
     BrowserModule,

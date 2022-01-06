@@ -69,12 +69,12 @@
       <div>
         <table>
           <tr>
-            <th>Temat</th>
-            <th>Opis</th>
-            <th>Wykonuje</th>
-            <th>Status</th>
-            <th>Priorytet</th>
-            <th>Data utworzenia</th>
+            <th [appSort]="tasks" data-order="desc" data-name="topic"><span class="sort-by">Temat</span></th>
+            <th [appSort]="tasks" data-order="desc" data-name="description"><span class="sort-by">Opis</span></th>
+            <th [appSort]="tasks" data-order="desc" data-type="user"><span class="sort-by">Wykonuje</span></th>
+            <th [appSort]="tasks" data-order="desc" data-type="status"><span class="sort-by">Status</span></th>
+            <th [appSort]="tasks" data-order="desc" data-type="priority"><span class="sort-by">Priorytet</span></th>
+            <th [appSort]="tasks" data-order="desc" data-name="createdAt"><span class="sort-by">Data utworzenia</span></th>
           </tr>
           <tr *ngFor="let task of tasks">
             <td><a routerLink="/project/{{project.id}}/task/{{task.id}}">{{task.topic}}</a></td>

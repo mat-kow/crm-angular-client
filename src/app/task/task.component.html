@@ -6,7 +6,7 @@
         <div class="form-group">
           <label for="topic">Temat</label>
           <input type="text" class="form-control" id="topic"
-                 required
+                 required autofocus
                  [(ngModel)]="task.topic" name="name">
         </div>
 <!--        description-->
@@ -20,10 +20,10 @@
           <label for="status">Status</label>
           <select class="form-control" id="status"
                   required
-                  ([ngModel])="task.status" name="status"
+                  [(ngModel)]="task.status" name="status"
                   #status>
-            <option *ngFor="let status of statusList" [value]="status"
-                    [selected]="task.status.name==status.name">{{status.name}}</option>
+            <option *ngFor="let status of statusList" [ngValue]="status"
+                    [selected]="task.status.name===status.name">{{status.name}}</option>
           </select>
         </div>
 
@@ -32,10 +32,10 @@
           <label for="priority">Priorytet</label>
           <select class="form-control" id="priority"
                   required
-                  ([ngModel])="task.priority" name="priority"
+                  [(ngModel)]="task.priority" name="priority"
                   #priority>
-            <option *ngFor="let priority of priorityList" [value]="priority"
-                    [selected]="task.priority.name==priority.name">{{priority.name}}</option>
+            <option *ngFor="let priority of priorityList" [ngValue]="priority"
+                    [selected]="task.priority.name===priority.name">{{priority.name}}</option>
           </select>
         </div>
 <!--        user-->
@@ -43,10 +43,10 @@
           <label for="user">Wykonuje</label>
           <select class="form-control" id="user"
                   required
-                  ([ngModel])="task.user" name="user"
+                  [(ngModel)]="task.user" name="user"
                   #user>
-            <option *ngFor="let user of task.project.users" [value]="user"
-                    [selected]="task.user.username==user.username">{{user.username}}</option>
+            <option *ngFor="let user of task.project.users" [ngValue]="user"
+                    [selected]="task.user.username===user.username">{{user.username}}</option>
           </select>
         </div>
 

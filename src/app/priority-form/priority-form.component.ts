@@ -18,7 +18,7 @@ export class PriorityFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createStatus(name: string, sortValue: string) {
+  createPriority(name: string, sortValue: string) {
     if (name && sortValue) { //todo message
       let priorityForm = new PriorityForm(name, Number(sortValue));
       this.priorityService.createPriority(priorityForm).subscribe(_ => this.goBack());
