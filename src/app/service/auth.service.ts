@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {AppConfig} from "./app-config";
 import jwtDecode from "jwt-decode";
 import * as moment from "moment";
+import {Moment} from "moment";
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,8 @@ export class AuthService {
   }
 
   setSession(token: string) {
+    console.log('set session')
+    console.log(token)
     localStorage.setItem('token', token);
     // @ts-ignore
     let decoded = jwtDecode(token);
@@ -45,15 +48,15 @@ export class AuthService {
     localStorage.setItem('principal', principal);
     // @ts-ignore
     let exp = decoded.exp;
-    localStorage.setItem('exp', exp);
+    localStorage.setItem('exp', String(exp));
   }
 
   isLogged(): boolean {
     return moment().isBefore(this.getExpiration())
   }
 
-  getExpiration() {
-    return moment(localStorage.getItem('exp'))
+  getExpiration(): Moment {
+    return moment(Number(localStorage.getItem('exp')) * 1000)
   }
 
   getPrincipal(): string {
@@ -63,8 +66,29 @@ export class AuthService {
 
   isAdmin(): boolean {
     // @ts-ignore
-    let authorities: string[] = localStorage.getItem('token');
-    return authorities.includes('ROLE_ADMIN')
+    let authorities: Object[] = jwtDecode(localStorage.getItem('token')).authorities;
+    let i = 0;
+    for (; i < authorities.length; i++) {
+      // @ts-ignore
+      let auth = authorities[i].authority;
+      if (auth === 'ROLE_ADMIN') {
+        return true;
+      }
+    }
+    return false;
+    // return authorities.includes('ROLE_ADMIN')
+  }
+
+  checkLocalStorage() {
+    let len = localStorage.length
+    let i: number;
+    for (i = 0; i < len; i++) {
+      let key = localStorage.key(i);
+      // @ts-ignore
+      console.log(key + " : " + localStorage.getItem(key))
+    }
+    console.log('storage end')
+
   }
 
 }

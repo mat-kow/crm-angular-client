@@ -1,8 +1,9 @@
 <nav>
   <a routerLink="index">Strona główna</a>
-  <a routerLink="login">Zaloguj/Wyloguj</a>
-  <a routerLink="register">Rejestracja</a>
-  <a routerLink="project/new">Dodaj projekt</a>
-  <a routerLink="admin">Admin</a>
+  <a *ngIf="!isLogged" routerLink="login">Zaloguj</a>
+  <a *ngIf="!isLogged" routerLink="register">Rejestracja</a>
+  <a *ngIf="isLogged" routerLink="project/new">Dodaj projekt</a>
+  <a *ngIf="isAdmin" routerLink="admin">Admin</a>
+  <button *ngIf="isLogged" (click)="logout()">Wyloguj</button>
 </nav>
 <router-outlet></router-outlet>
