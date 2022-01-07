@@ -17,17 +17,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string): void {
-    this.authService.setCredentials(username.trim(), password.trim());
-    this.authService.authenticate().subscribe(isCredentialsRight => {
-      if (isCredentialsRight) {
-        // this.authService.authenticated = true;
+    this.authService.loginJwt(username.trim(), password.trim()).subscribe(resp => {
+      if (resp.status == 200) {
+        let token = resp.headers.get('Authorization');
+        this.authService.setSession(token);
         this.goBack();
-      }
-    });
+      } //todo message when 4xx
+    })
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.logoutJwt();
     this.goBack();
   }
 

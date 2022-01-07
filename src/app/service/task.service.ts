@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {VariablesService} from "./variables.service";
+import {AppConfig} from "./app-config";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {Task} from "../Task";
@@ -15,7 +15,7 @@ export class TaskService {
 
   constructor(
     private http: HttpClient,
-    private variables: VariablesService,
+    private variables: AppConfig,
     private auth: AuthService
   ) {
   }

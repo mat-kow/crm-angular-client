@@ -1,51 +1,70 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {VariablesService} from "./variables.service";
-import {CookieService} from "ngx-cookie-service";
+import {AppConfig} from "./app-config";
+import jwtDecode from "jwt-decode";
+import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // authenticated = false ;
-  private _username = '';
-  private password = '';
 
   constructor(
     private http: HttpClient,
-    private variables: VariablesService,
-    private cookieService: CookieService
+    private config: AppConfig,
   ) {
   }
 
-  setCredentials(username: string, password: string): void {
-    this._username = username;
-    this.password = password;
-    this.cookieService.set('username', username)
-    this.cookieService.set('password', password)
-  }
-
-  logout(): void {
-    // this.authenticated = false;
-    // this.setCredentials('', '')
-    this.cookieService.set('username', '')//todo JWT authentication
-    this.cookieService.set('password', '')
-
-  }
-
-  authenticate(): Observable<boolean> {
-    const loginUrl = this.variables.hostUrl + '/api/login';
-    return this.http.get<boolean>(loginUrl, this.getAuthHeader());
-  }
-
   getAuthHeader() {
+    let token = localStorage.getItem('token');
     let headerDict = {
-      'authorization': 'Basic ' + btoa(`${this.cookieService.get('username')}:${this.cookieService.get('password')}`),
+      'authorization': token,
     }
-    return {
-      headers: new HttpHeaders(headerDict),
-    };
+    // @ts-ignore
+    return { headers: new HttpHeaders(headerDict) };
+  }
+
+  loginJwt(username: string, password: string): Observable<any> {
+    const loginUrl = this.config.hostUrl + '/api/login';
+    return this.http.post<any>(loginUrl, `{"username": "${username}", "password": "${password}"}`, {observe: 'response'})
+  }
+
+  logoutJwt() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('principal');
+    localStorage.removeItem('exp');
+  }
+
+  setSession(token: string) {
+    localStorage.setItem('token', token);
+    // @ts-ignore
+    let decoded = jwtDecode(token);
+    // @ts-ignore
+    let principal = decoded.sub
+    localStorage.setItem('principal', principal);
+    // @ts-ignore
+    let exp = decoded.exp;
+    localStorage.setItem('exp', exp);
+  }
+
+  isLogged(): boolean {
+    return moment().isBefore(this.getExpiration())
+  }
+
+  getExpiration() {
+    return moment(localStorage.getItem('exp'))
+  }
+
+  getPrincipal(): string {
+    //@ts-ignore
+    return localStorage.getItem('principal')
+  }
+
+  isAdmin(): boolean {
+    // @ts-ignore
+    let authorities: string[] = localStorage.getItem('token');
+    return authorities.includes('ROLE_ADMIN')
   }
 
 }

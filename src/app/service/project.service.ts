@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ProjectForm} from "../ProjectForm";
 import {HttpClient} from "@angular/common/http";
-import {VariablesService} from "./variables.service";
+import {AppConfig} from "./app-config";
 import {Observable} from "rxjs";
 import {AuthService} from "./auth.service";
 import {Project} from "../Project";
@@ -15,7 +15,7 @@ export class ProjectService {
 
   constructor(
     private http: HttpClient,
-    private variables: VariablesService,
+    private variables: AppConfig,
     private auth: AuthService
   ) { }
 
@@ -32,7 +32,7 @@ export class ProjectService {
   }
 
   getAll(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.projectUrl);
+    return this.http.get<Project[]>(this.projectUrl, this.auth.getAuthHeader());
   }
 
 }
