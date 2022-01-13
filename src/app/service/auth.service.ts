@@ -38,8 +38,6 @@ export class AuthService {
   }
 
   setSession(token: string) {
-    console.log('set session')
-    console.log(token)
     localStorage.setItem('token', token);
     // @ts-ignore
     let decoded = jwtDecode(token);

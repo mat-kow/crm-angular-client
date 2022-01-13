@@ -11,7 +11,7 @@ import {Project} from "../Project";
 })
 export class ProjectService {
 
-  projectUrl = this.variables.hostUrl + '/api/project';
+  projectUrl = this.variables.hostUrl + '/api/projects';
 
   constructor(
     private http: HttpClient,

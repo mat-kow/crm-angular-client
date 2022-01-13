@@ -32,4 +32,32 @@
       </tr>
     </table>
   </div>
+<!--  list of admins-->
+  <div>
+    <h3>Admini:</h3>
+    <table>
+      <tr>
+        <th>Nazwa użytkownika</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let user of admins">
+        <td>{{user.username}}</td>
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td><button (click)="removeAdmin(user)">Usuń</button> </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <button *ngIf="!viewUserSearch" (click)="setViewSearch(true)">Dodaj</button>
+    <div *ngIf="viewUserSearch">
+      <button (click)="setViewSearch(false)">Schowaj</button>
+      <div class="user-search">
+        <app-user-search (newUserEvent)="createAdmin($event)"></app-user-search>
+      </div>
+
+    </div>
+  </div>
 </div>

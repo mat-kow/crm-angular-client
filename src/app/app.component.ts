@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogged?: boolean;
   isAdmin?: boolean;
   navigationSubscription;
+  principal?: string;
 
   constructor(
     private auth: AuthService,
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   initialiseInvites() {
     this.checkLogged();
     this.checkAdmin();
+    this.getPrincipal();
   }
 
   ngOnDestroy() {
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkLogged();
     this.checkAdmin();
-    console.log(this.auth.isLogged())
+    this.getPrincipal()
   }
 
   checkLogged() {
@@ -50,10 +52,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   checkAdmin() {
-    console.log('check admin')
     if(this.isLogged) {
       this.isAdmin = this.auth.isAdmin();
     }
+  }
+
+  getPrincipal() {
+    this.principal = this.auth.getPrincipal();
   }
 
   logout() {
