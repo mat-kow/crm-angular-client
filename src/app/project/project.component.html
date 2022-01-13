@@ -66,6 +66,40 @@
 <!--    tasks-->
     <div>
       <button (click)="newTask(project.id)">Dodaj zadanie</button>
+      <div *ngIf="!showFilter">
+        <button (click)="setViewFilter(true)">Filtruj</button>
+      </div>
+      <div *ngIf="showFilter"><!-- filter -->
+        <button *ngIf="showFilter" (click)="setViewFilter(false)">Schowaj filtry</button>
+        <form #filterForm="ngForm">
+          <label for="status">Status</label>
+          <select id="status" name="status" #status>
+            <option value="" selected>-</option>
+            <option *ngFor="let status of statusesInUse" [ngValue]="status">{{status}}</option>
+          </select>
+
+          <label for="priority">Priorytet</label>
+          <select id="priority" name="priority" #priority>
+            <option value="" selected>-</option>
+            <option *ngFor="let priority of prioritiesInUse" [ngValue]="priority">{{priority}}</option>
+          </select>
+
+          <label for="user">Wykonuje</label>
+          <select id="user" name="user" #user>
+            <option value="" selected>-</option>
+            <option *ngFor="let user of project.users" [ngValue]="user.username">{{user.username}}</option>
+          </select>
+
+          <label for="fromDate">Od daty</label>
+          <input type="date" id="fromDate" name="fromDate" #fromDate/>
+
+          <label for="toDate">Do daty</label>
+          <input type="date" id="toDate" name="toDate" #toDate/>
+
+          <button (click)="filter(status.value, priority.value, user.value, fromDate.value, toDate.value)">Zastosuj filtry</button>
+          <button (click)="resetFilter()">Kasuj filtry</button>
+        </form>
+      </div>
       <div>
         <table>
           <tr>
@@ -76,7 +110,7 @@
             <th [appSort]="tasks" data-order="desc" data-type="priority"><span class="sort-by">Priorytet</span></th>
             <th [appSort]="tasks" data-order="desc" data-name="createdAt"><span class="sort-by">Data utworzenia</span></th>
           </tr>
-          <tr *ngFor="let task of tasks">
+          <tr *ngFor="let task of filteredTasks">
             <td><a routerLink="/project/{{project.id}}/task/{{task.id}}">{{task.topic}}</a></td>
             <td>{{task.description}}</td>
             <td>{{task.user.username}}</td>

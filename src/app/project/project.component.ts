@@ -16,6 +16,11 @@ export class ProjectComponent implements OnInit {
   viewUserSearch = false;
   tasks: Task[] = [];
 
+  showFilter = false;
+  prioritiesInUse: Set<string> = new Set<string>();
+  statusesInUse: Set<string> = new Set<string>();
+  filteredTasks: Task[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -62,6 +67,56 @@ export class ProjectComponent implements OnInit {
   }
 
   getTasks(projectId: number) {
-    this.taskService.getTaskListByProject(projectId).subscribe(tasks => this.tasks = tasks)
+    this.taskService.getTaskListByProject(projectId).subscribe(tasks => {
+      this.tasks = tasks;
+      this.getPrioritiesAndStatuses();
+      this.resetFilter();
+    })
+  }
+
+  getPrioritiesAndStatuses() {
+    this.tasks.forEach(task => {
+      this.statusesInUse.add(task.status.name);
+      this.prioritiesInUse.add(task.priority.name);
+    })
+  }
+
+  setViewFilter(showFilter: boolean) {
+    this.showFilter = showFilter;
+  }
+
+  filter(statusName: string, priorityName: string, username: string, fromDate: string, toDate: string) {
+    this.filteredTasks = [];
+    let i = 0;
+    for (; i < this.tasks.length; i++) {
+      let task = this.tasks[i];
+      if (statusName && statusName != task.status.name) {
+        continue
+      }
+      if (priorityName && priorityName != task.priority.name) {
+        continue
+      }
+      if (username && username != task.user.username) {
+        continue
+      }
+      if (fromDate) {
+        let from = new Date(fromDate)
+        if (new Date(task.createdAt) < from) {
+          continue
+        }
+      }
+      if (toDate) {
+        let to = new Date(toDate + 'T23:59:59.999+01:00')
+        if (new Date(task.createdAt) > to) {
+          continue
+        }
+      }
+      this.filteredTasks.push(task);
+    }
+  }
+
+  resetFilter() {
+    this.filteredTasks = [];
+    this.tasks.forEach(task => this.filteredTasks.push(task));
   }
 }
