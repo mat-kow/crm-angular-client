@@ -3,17 +3,21 @@
     <form #priorityForm="ngForm">
       <div class="form-group">
         <label for="name">Nazwa</label>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Nazwa jest wymagana</div>
+        <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 20 znaków</div>
         <input type="text" class="form-control" id="name"
                required name="name"
-               #name>
+               [(ngModel)]="model.name"
+               #name="ngModel">
       </div>
       <div class="form-group">
         <label for="sortValue">Wartość sortowania</label>
         <input type="number" class="form-control" id="sortValue"
                required name="sortValue"
-               #sortValue>
+               [(ngModel)]="model.sortValue"
+               #sortValue="ngModel">
       </div>
-      <button type="submit" (click)="createPriority(name.value, sortValue.value)"
+      <button type="submit" class="btn btn-success" (click)="createPriority()"
               [disabled]="!priorityForm.form.valid">Zapisz</button>
 
     </form>

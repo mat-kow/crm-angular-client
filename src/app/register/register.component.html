@@ -1,65 +1,63 @@
 <div class="container">
   <div [hidden]="submitted">
     <h1>Rejestracja</h1>
-    <h3 [hidden]="!registerError" class="alert alert-danger">
-      Użytkownik istnieje
-    </h3>
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <form #userForm="ngForm">
       <div class="form-group">
         <label for="username">Nazwa użytkownika</label>
+        <div [hidden]="!usernameTakenFlag" class="alert alert-danger">Użytkownik istnieje</div>
+        <div [hidden]="!usernameFlag" class="alert alert-danger">Nazwa użytkownika musi mieć od 3 do 10 znaków</div>
+        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+          Nazwa użytkownika jest wymagana
+        </div>
         <input type="text" class="form-control" id="username"
                required
                [(ngModel)]="model.username" name="username"
                #username="ngModel">
-        <div [hidden]="username.valid || username.pristine"
-             class="alert alert-danger">
-          Nazwa użytkownika jest wymagana
-        </div>
       </div>
 
       <div class="form-group">
         <label for="firstname">Imię</label>
+        <div [hidden]="!firstnameFlag" class="alert alert-danger">Imię może mieć maks. 20 znaków</div>
+        <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
+          Imię jest wymagane
+        </div>
         <input type="text" class="form-control" id="firstname"
                required
                [(ngModel)]="model.firstname" name="firstname"
                #firstname="ngModel">
-        <div [hidden]="firstname.valid || firstname.pristine"
-             class="alert alert-danger">
-          Imię jest wymagane
-        </div>
       </div>
 
       <div class="form-group">
         <label for="lastname">Nazwisko</label>
+        <div [hidden]="!lastnameFlag" class="alert alert-danger">Nazwisko może mieć maks. 20 znaków</div>
+        <div [hidden]="lastname.valid || lastname.pristine" class="alert alert-danger">
+          Nazwisko jest wymagane
+        </div>
         <input type="text" class="form-control" id="lastname"
                required
                [(ngModel)]="model.lastname" name="lastname"
                #lastname="ngModel">
-        <div [hidden]="lastname.valid || lastname.pristine"
-             class="alert alert-danger">
-          Nazwisko jest wymagane
-        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Hasło</label>
+        <div [hidden]="!passwordFlag || password.valid || password.pristine" class="alert alert-danger">
+          <span [hidden]="!passwordFlag">Hasło musi mieć od 6 do 20 znaków. </span>
+          <span [hidden]="password.valid || password.pristine">Hasło jest wymagane.</span>
+        </div>
         <input type="password" class="form-control" id="password"
                required
                [(ngModel)]="model.password" name="password"
                #password="ngModel">
-        <div [hidden]="password.valid || password.pristine"
-             class="alert alert-danger">
-          Hasło jest wymagane
-        </div>
       </div>
 
       <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid"
-              (keydown.enter)="newProject()" (click)="newProject()">Wyślij</button>
+              (keydown.enter)="newUser()" (click)="newUser()">Wyślij</button>
     </form>
   </div>
 
   <div [hidden]="!submitted">
-    <h3>Pomyślnie dodano użytkownika</h3>
+    <h3>Pomyślnie dodano użytkownika   <a routerLink="/login">Zaloguj się</a></h3>
   </div>
 
 </div>

@@ -20,6 +20,9 @@ export class TaskFormComponent implements OnInit {
   project: Project;
   priorities?: string[];
 
+  topicFlag?: boolean;
+  descriptionFlag?: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private priorityService: PriorityService,
@@ -37,7 +40,25 @@ export class TaskFormComponent implements OnInit {
   createNewTask(priorityName: string, userId: string) {
     this.model.priorityName = priorityName;
     this.model.userId = Number(userId);
-    this.taskService.createTask(this.model).subscribe(task => this.router.navigate([`/project/${this.model.projectId}`]));
+    this.taskService.createTask(this.model).subscribe({
+      next: _ => {
+        this.router.navigate([`/project/${this.model.projectId}`])
+      },
+      error: err => {
+        this.resetFlags();
+        if (err.status == 400) {
+          let messages = String(err.error.message).split(',');
+          messages.forEach(mess => {
+            let pair = mess.trim().split(':');
+            if (pair[0].trim() == 'topic') {
+              this.topicFlag = true;
+            } else if (pair[0].trim() == 'description') {
+              this.descriptionFlag = true;
+            }
+          });
+        }
+      }
+    });
   }
 
   getProject() {
@@ -52,9 +73,12 @@ export class TaskFormComponent implements OnInit {
     this.priorityService.getPrioritiesNames().subscribe(priorities => this.priorities = priorities);
   }
 
-
   goBack(): void {
     this.location.back()
   }
 
+  resetFlags() {
+    this.topicFlag = false;
+    this.descriptionFlag = false;
+  }
 }

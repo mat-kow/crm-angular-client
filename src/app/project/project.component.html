@@ -4,6 +4,7 @@
       <form #projectForm="ngForm">
         <div class="form-group">
           <label for="name">Nazwa</label>
+          <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 20 znaków</div>
           <input type="text" class="form-control" id="name"
                  required
                  [(ngModel)]="project.name" name="name">
@@ -22,12 +23,14 @@
 <!--        description-->
         <div class="form-group">
           <label for="description">Opis</label>
+          <div [hidden]="!descriptionFlag" class="alert alert-danger">Opis może zawierać maks. 200 znaków</div>
           <input type="text" class="form-control" id="description"
                  [(ngModel)]="project.description" name="description">
         </div>
 <!--        site-->
         <div class="form-group">
           <label for="site">Strona www</label>
+          <div [hidden]="!siteFlag" class="alert alert-danger">Podaj poprawny URL</div>
           <input type="text" class="form-control" id="site"
                  [(ngModel)]="project.site" name="site">
         </div>
@@ -103,12 +106,12 @@
       <div>
         <table>
           <tr>
-            <th [appSort]="tasks" data-order="desc" data-name="topic"><span class="sort-by">Temat</span></th>
-            <th [appSort]="tasks" data-order="desc" data-name="description"><span class="sort-by">Opis</span></th>
-            <th [appSort]="tasks" data-order="desc" data-type="user"><span class="sort-by">Wykonuje</span></th>
-            <th [appSort]="tasks" data-order="desc" data-type="status"><span class="sort-by">Status</span></th>
-            <th [appSort]="tasks" data-order="desc" data-type="priority"><span class="sort-by">Priorytet</span></th>
-            <th [appSort]="tasks" data-order="desc" data-name="createdAt"><span class="sort-by">Data utworzenia</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-name="topic"><span class="sort-by">Temat</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-name="description"><span class="sort-by">Opis</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-type="user"><span class="sort-by">Wykonuje</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-type="status"><span class="sort-by">Status</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-type="priority"><span class="sort-by">Priorytet</span></th>
+            <th [appSort]="filteredTasks" data-order="desc" data-name="createdAt"><span class="sort-by">Data utworzenia</span></th>
           </tr>
           <tr *ngFor="let task of filteredTasks">
             <td><a routerLink="/project/{{project.id}}/task/{{task.id}}">{{task.topic}}</a></td>

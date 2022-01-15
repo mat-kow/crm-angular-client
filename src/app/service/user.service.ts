@@ -18,8 +18,8 @@ export class UserService {
     private auth: AuthService,
   ) {}
 
-  createNewUser(user: UserRegForm): Observable<boolean> {
-    return this.http.post<boolean>(this.usersUrl, user);
+  createNewUser(user: UserRegForm): Observable<any> {
+    return this.http.post<any>(this.usersUrl, user);
   }
 
   searchUser(query: string): Observable<User[]> {

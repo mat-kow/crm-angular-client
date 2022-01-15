@@ -5,6 +5,8 @@ import {StatusService} from "../service/status.service";
 import {PriorityService} from "../service/priority.service";
 import {User} from "../user";
 import {UserService} from "../service/user.service";
+import {AuthService} from "../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -22,9 +24,15 @@ export class AdminComponent implements OnInit {
     private statusService: StatusService,
     private priorityService: PriorityService,
     private userService: UserService,
+    private auth: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    if (!this.auth.isAdmin()) {
+      this.router.navigate(['/index'])
+      return
+    }
     this.getStatuses();
     this.getPriorities();
     this.getAdmins();

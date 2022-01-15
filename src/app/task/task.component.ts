@@ -18,6 +18,9 @@ export class TaskComponent implements OnInit {
   statusList: Status[] = [];
   priorityList: Priority[] = [];
 
+  topicFlag?: boolean;
+  descriptionFlag?: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
@@ -47,7 +50,30 @@ export class TaskComponent implements OnInit {
 
   saveTask() {
     // @ts-ignore
-    this.taskService.updateTask(this.task).subscribe(task => this.router.navigate([`/project/${task.project.id}`]));
+    this.taskService.updateTask(this.task).subscribe({
+      next: task => {
+        this.router.navigate([`/project/${task.project.id}`])
+      },
+      error: err => {
+        this.resetFlags();
+        if (err.status == 400) {
+          let messages = String(err.error.message).split(',');
+          messages.forEach(mess => {
+            let pair = mess.trim().split(':');
+            if (pair[0].trim() == 'topic') {
+              this.topicFlag = true;
+            } else if (pair[0].trim() == 'description') {
+              this.descriptionFlag = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  resetFlags() {
+    this.topicFlag = false;
+    this.descriptionFlag = false;
   }
 
 }

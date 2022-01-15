@@ -1,26 +1,27 @@
 <div class="container">
-  <div [hidden]="submitted">
+  <div>
     <h1>Nowy projekt</h1>
-    <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+    <form #projectForm="ngForm">
       <div class="form-group">
         <label for="name">Nazwa</label>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Nazwa jest wymagana</div>
+        <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 20 znaków</div>
         <input type="text" class="form-control" id="name"
                required
                [(ngModel)]="model.name" name="name"
                #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-          Nazwa jest wymagana
-        </div>
       </div>
 
       <div class="form-group">
         <label for="description">Opis</label>
+        <div [hidden]="!descriptionFlag" class="alert alert-danger">Opis może zawierać maks. 200 znaków</div>
         <input type="text" class="form-control" id="description" placeholder="O czym jest projekt"
                [(ngModel)]="model.description" name="description">
       </div>
 
       <div class="form-group">
         <label for="site">Strona www</label>
+        <div [hidden]="!siteFlag" class="alert alert-danger">Podaj poprawny URL</div>
         <input type="text" class="form-control" id="site"
                [(ngModel)]="model.site" name="site">
       </div>
@@ -29,9 +30,4 @@
               (keydown.enter)="newProject()" (click)="newProject()">Wyślij</button>
     </form>
   </div>
-
-  <div [hidden]="!submitted">
-    <h3>Dodano projekt</h3>
-  </div>
-
 </div>

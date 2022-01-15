@@ -3,17 +3,17 @@
   <form #taskForm="ngForm">
     <div class="form-group">
       <label for="topic">Temat</label>
+      <div [hidden]="topic.valid || topic.pristine" class="alert alert-danger">Temat jest wymagany</div>
+      <div [hidden]="!topicFlag" class="alert alert-danger">Temat musi zawierać od 3 do 20 znaków</div>
       <input type="text" class="form-control" id="topic"
              required
              [(ngModel)]="model.topic" name="topic"
              #topic="ngModel">
-      <div [hidden]="topic.valid || topic.pristine" class="alert alert-danger">
-        Temat jest wymagany
-      </div>
     </div>
 
     <div class="form-group">
       <label for="description">Opis</label>
+      <div [hidden]="!descriptionFlag" class="alert alert-danger">Opis może zawierać maks. 200 znaków</div>
       <input type="text" class="form-control" id="description"
              [(ngModel)]="model.description" name="description">
     </div>

@@ -8,6 +8,9 @@ import {Location} from "@angular/common";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  badCredentialsFlag = false;
+
   constructor(
     private authService: AuthService,
     private location: Location
@@ -17,13 +20,19 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string): void {
-    this.authService.loginJwt(username.trim(), password.trim()).subscribe(resp => {
-      if (resp.status == 200) {
-        let token = resp.headers.get('Authorization');
-        this.authService.setSession(token);
-        this.goBack();
-      } //todo message when 4xx
-    })
+    this.authService.loginJwt(username.trim(), password.trim()).subscribe(
+      {
+        next: data => {
+          let token = data.headers.get('Authorization');
+          this.authService.setSession(token);
+          this.goBack();
+        },
+        error: err => {
+          if (err.status == 403) {
+            this.badCredentialsFlag = true;
+          }
+        }
+      })
   }
 
   logout(): void {

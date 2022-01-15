@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {catchError } from 'rxjs/operators';
 import {AppConfig} from "./app-config";
 import jwtDecode from "jwt-decode";
 import * as moment from "moment";

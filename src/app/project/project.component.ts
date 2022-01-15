@@ -21,6 +21,10 @@ export class ProjectComponent implements OnInit {
   statusesInUse: Set<string> = new Set<string>();
   filteredTasks: Task[] = [];
 
+  nameFlag?: boolean;
+  descriptionFlag?: boolean;
+  siteFlag?: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -40,7 +44,26 @@ export class ProjectComponent implements OnInit {
 
   saveChanges() {
     if (this.project) {
-      this.projectService.updateProject(this.project).subscribe();
+      this.projectService.updateProject(this.project).subscribe({
+        next: _ =>
+          this.resetFlags(),
+        error: err => {
+          this.resetFlags();
+          if (err.status == 400) {
+            let messages = String(err.error.message).split(',');
+            messages.forEach(mess => {
+              let pair = mess.trim().split(':');
+              if (pair[0].trim() == 'name') {
+                this.nameFlag = true;
+              } else if (pair[0].trim() == 'description') {
+                this.descriptionFlag = true;
+              } else if (pair[0].trim() == 'site') {
+                this.siteFlag = true;
+              }
+            });
+          }
+        }
+      });
     }
   }
 
@@ -118,5 +141,11 @@ export class ProjectComponent implements OnInit {
   resetFilter() {
     this.filteredTasks = [];
     this.tasks.forEach(task => this.filteredTasks.push(task));
+  }
+
+  resetFlags() {
+    this.nameFlag = false;
+    this.descriptionFlag = false;
+    this.siteFlag = false;
   }
 }
