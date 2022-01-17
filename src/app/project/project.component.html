@@ -1,6 +1,6 @@
 <div class="container">
   <div *ngIf="project">
-    <div class="form" *ngIf="project">
+    <div class="form" *ngIf="editView">
       <form #projectForm="ngForm">
         <div class="form-group">
           <label for="name">Nazwa</label>
@@ -63,8 +63,27 @@
 
 <!--        button-->
         <button type="button" class="btn btn-default" (click)="saveChanges();">Zapisz zmiany</button>
+        <button type="button" class="btn btn-default" (click)="setEditView(false)">Cofnij</button>
       </form>
     </div>
+
+    <div *ngIf="!editView">
+      <div><p><b>Project:</b> {{project.name}}</p></div>
+      <div><p><b>Opis:</b> {{project.description}}</p></div>
+      <div><p><b>Strona www:</b> {{project.site}}</p></div>
+      <div>
+        <p>Uczestnicy:</p>
+        <ul>
+          <li *ngFor="let user of project.users">{{user.username}}</li>
+        </ul>
+      </div>
+
+      <button *ngIf="checkEditPermission()" (click)="setEditView(true)">Edytuj</button>
+      <button *ngIf="checkEditPermission()" (click)="deleteProject()">Usuń</button>
+    </div>
+
+
+
     <br/>
 <!--    tasks-->
     <div>

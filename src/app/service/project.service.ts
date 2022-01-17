@@ -32,7 +32,11 @@ export class ProjectService {
   }
 
   getAll(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.projectUrl, this.auth.getAuthHeader());
+    return this.http.get<Project[]>(this.projectUrl);
+  }
+
+  delete(projectId: number): Observable<any> {
+    return this.http.delete(`${this.projectUrl}/${projectId}`, this.auth.getAuthHeader());
   }
 
 }

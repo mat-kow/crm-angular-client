@@ -25,6 +25,8 @@ export class ProjectComponent implements OnInit {
   descriptionFlag?: boolean;
   siteFlag?: boolean;
 
+  editView = false;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -147,5 +149,24 @@ export class ProjectComponent implements OnInit {
     this.nameFlag = false;
     this.descriptionFlag = false;
     this.siteFlag = false;
+  }
+
+  setEditView(view: boolean) {
+    if (!this.checkEditPermission()) {
+      this.editView = false;
+    } else {
+      this.editView = view;
+    }
+  }
+
+  deleteProject() {
+    if (this.checkEditPermission() && this.project) {
+      this.projectService.delete(this.project.id).subscribe(_ => this.router.navigate(['/index']))
+    }
+  }
+
+  checkEditPermission(): boolean {
+    //todo implementation
+    return true;
   }
 }
