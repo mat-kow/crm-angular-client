@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="topic">Temat</label>
       <div [hidden]="topic.valid || topic.pristine" class="alert alert-danger">Temat jest wymagany</div>
-      <div [hidden]="!topicFlag" class="alert alert-danger">Temat musi zawierać od 3 do 20 znaków</div>
+      <div [hidden]="!topicFlag" class="alert alert-danger">Temat musi zawierać od 3 do 50 znaków</div>
       <input type="text" class="form-control" id="topic"
              required
              [(ngModel)]="model.topic" name="topic"

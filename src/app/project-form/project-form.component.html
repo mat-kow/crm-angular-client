@@ -5,7 +5,7 @@
       <div class="form-group">
         <label for="name">Nazwa</label>
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Nazwa jest wymagana</div>
-        <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 20 znaków</div>
+        <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 50 znaków</div>
         <input type="text" class="form-control" id="name"
                required
                [(ngModel)]="model.name" name="name"

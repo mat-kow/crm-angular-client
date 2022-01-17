@@ -4,7 +4,7 @@
       <form #projectForm="ngForm">
         <div class="form-group">
           <label for="name">Nazwa</label>
-          <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 20 znaków</div>
+          <div [hidden]="!nameFlag" class="alert alert-danger">Nazwa musi zawierać od 3 do 50 znaków</div>
           <input type="text" class="form-control" id="name"
                  required
                  [(ngModel)]="project.name" name="name">
