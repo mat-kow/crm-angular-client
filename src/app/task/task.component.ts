@@ -21,6 +21,8 @@ export class TaskComponent implements OnInit {
   topicFlag?: boolean;
   descriptionFlag?: boolean;
 
+  editView = false;
+
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskService,
@@ -75,5 +77,26 @@ export class TaskComponent implements OnInit {
     this.topicFlag = false;
     this.descriptionFlag = false;
   }
+
+  deleteTask() {
+    if (this.task && this.checkEditPermission()) {
+      let projectId = this.task.project.id;
+      this.taskService.deleteTask(this.task.id).subscribe(_ => this.router.navigate([`/project/${projectId}`]))
+    }
+  }
+
+  setEditView(view: boolean) {
+    if (!this.checkEditPermission()) {
+      this.editView = false;
+    } else {
+      this.editView = view;
+    }
+  }
+
+  checkEditPermission(): boolean {
+    //todo implementation
+    return true;
+  }
+
 
 }

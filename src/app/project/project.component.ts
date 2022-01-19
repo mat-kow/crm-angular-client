@@ -45,10 +45,12 @@ export class ProjectComponent implements OnInit {
   }
 
   saveChanges() {
-    if (this.project) {
+    if (this.project && this.checkEditPermission()) {
       this.projectService.updateProject(this.project).subscribe({
-        next: _ =>
-          this.resetFlags(),
+        next: _ => {
+          this.resetFlags();
+          this.editView = false;
+        },
         error: err => {
           this.resetFlags();
           if (err.status == 400) {

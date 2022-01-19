@@ -19,6 +19,7 @@ import { PriorityFormComponent } from './priority-form/priority-form.component';
 import { StatusComponent } from './status/status.component';
 import { PriorityComponent } from './priority/priority.component';
 import { SortDirective } from './directive/sort.directive';
+import { UserPersonalComponent } from './user-personal/user-personal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SortDirective } from './directive/sort.directive';
     StatusComponent,
     PriorityComponent,
     SortDirective,
+    UserPersonalComponent,
   ],
   imports: [
     BrowserModule,

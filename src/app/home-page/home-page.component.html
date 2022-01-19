@@ -9,21 +9,22 @@
 </div>
 <div>
   <ul *ngIf="activities">
-    <li *ngFor="let activity of activities">
+    <li *ngFor="let activity of activities" [hidden]="activity.subject=='TASK'&&activity.taskTopic==null">
       <div *ngIf="activity.subject=='PROJECT'&&activity.action=='CREATION'">
         {{activity.created | date:'YYYY-MM-dd HH:mm'}} {{activity.username}}
         rozpoczął projekt <a routerLink="/project/{{activity.projectId}}">{{activity.projectName}}</a>
       </div>
-
-      <div *ngIf="activity.subject=='TASK'&&activity.action=='CREATION'">
-        {{activity.created | date:'YYYY-MM-dd HH:mm'}} {{activity.username}}
-        dodał zadanie <a routerLink="/project/{{activity.projectId}}/task{{activity.subjectId}}">{{activity.taskTopic}}</a>
-        do projektu <a routerLink="/project/{{activity.projectId}}">{{activity.projectName}}</a>
-      </div>
-      <div *ngIf="activity.subject=='TASK'&&activity.action=='STATUS_CHANGE'">
-        {{activity.created | date:'YYYY-MM-dd HH:mm'}} {{activity.username}}
-        zmienił status zadania <a routerLink="/project/{{activity.projectId}}/task{{activity.subjectId}}">{{activity.taskTopic}}</a>
-        w projekcie <a routerLink="/project/{{activity.projectId}}">{{activity.projectName}}</a>
+      <div *ngIf="activity.subject=='TASK'">
+        <div *ngIf="activity.action=='CREATION'">
+          {{activity.created | date:'YYYY-MM-dd HH:mm'}} {{activity.username}}
+          dodał zadanie <a routerLink="/project/{{activity.projectId}}/task/{{activity.subjectId}}">{{activity.taskTopic}}</a>
+          do projektu <a routerLink="/project/{{activity.projectId}}">{{activity.projectName}}</a>
+        </div>
+        <div *ngIf="activity.action=='STATUS_CHANGE'">
+          {{activity.created | date:'YYYY-MM-dd HH:mm'}} {{activity.username}}
+          zmienił status zadania <a routerLink="/project/{{activity.projectId}}/task/{{activity.subjectId}}">{{activity.taskTopic}}</a>
+          w projekcie <a routerLink="/project/{{activity.projectId}}">{{activity.projectName}}</a>
+        </div>
       </div>
     </li>
   </ul>

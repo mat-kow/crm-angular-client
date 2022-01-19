@@ -1,0 +1,56 @@
+<div *ngIf="user">
+  <div *ngIf="!editView">
+    <h1>Witaj, {{user.username}}</h1>
+    <h3>Twoje dane:</h3>
+    <p><b>Imię:</b> {{user.firstname}}</p>
+    <p><b>Nazwisko:</b> {{user.lastname}}</p>
+    <button (click)="setEditView(true)">Edytuj dane</button>
+    <button (click)="setChangePassView(true)">Zmień hasło</button>
+  </div>
+<!--  edit user data-->
+  <div *ngIf="editView&&model">
+    <form #userForm="ngForm">
+      <div class="form-group">
+        <label for="firstname">Imię</label>
+        <div [hidden]="!firstnameFlag" class="alert alert-danger">Imię może mieć maks. 20 znaków</div>
+        <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
+          Imię jest wymagane
+        </div>
+        <input type="text" class="form-control" id="firstname"
+               required
+               [(ngModel)]="model.firstname" name="firstname"
+               #firstname="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Nazwisko</label>
+        <div [hidden]="!lastnameFlag" class="alert alert-danger">Nazwisko może mieć maks. 20 znaków</div>
+        <div [hidden]="lastname.valid || lastname.pristine" class="alert alert-danger">
+          Nazwisko jest wymagane
+        </div>
+        <input type="text" class="form-control" id="lastname"
+               required
+               [(ngModel)]="model.lastname" name="lastname"
+               #lastname="ngModel">
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid"
+              (keydown.enter)="saveChanges()" (click)="saveChanges()">Zapisz zmiany</button>
+      <button (click)="setEditView(false)">Cofnij</button>
+
+    </form>
+  </div>
+<!--  change password-->
+  <div *ngIf="changePassView">
+    <div>
+      <div [hidden]="!oldPassFlag" class="alert alert-danger">Nieprawidłowe hasło</div>
+      <label for="oldPass">Stare hasło</label>
+      <input type="password" id="oldPass" #oldPass>
+    </div>
+    <div>
+      <div [hidden]="!newPassFlag" class="alert alert-danger">Hasło musi mieć od 6 do 20 znaków. </div>
+      <label for="newPass">Nowe hasło</label>
+      <input type="password" id="newPass" #newPass>
+    </div>
+    <button (click)="changePassword(oldPass.value, newPass.value); oldPass.value=''; newPass.value=''">Zmień hasło</button>
+  </div>
+</div>

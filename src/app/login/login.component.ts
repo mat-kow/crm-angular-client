@@ -35,11 +35,6 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  logout(): void {
-    this.authService.logoutJwt();
-    this.goBack();
-  }
-
   goBack(): void {
     this.location.back()
   }

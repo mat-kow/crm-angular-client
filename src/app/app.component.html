@@ -4,7 +4,7 @@
   <a *ngIf="!isLogged" routerLink="register">Rejestracja</a>
   <a *ngIf="isLogged" routerLink="project/new">Dodaj projekt</a>
   <a *ngIf="isAdmin" routerLink="admin">Admin</a>
-  <a *ngIf="isLogged" routerLink="#">Zalogowano jako {{principal}}</a>
+  <a *ngIf="isLogged" routerLink="user">Zalogowano jako {{principal}}</a>
   <a *ngIf="isLogged" (click)="logout()" routerLink="index">Wyloguj</a>
 </nav>
 <router-outlet></router-outlet>

@@ -5,16 +5,17 @@ import {Observable} from "rxjs";
 import {AppConfig} from "./app-config";
 import {AuthService} from "./auth.service";
 import {UserRegForm} from "../user-reg-form";
+import {environment} from "../../environments/environment";
+import {ChangePasswordForm} from "../change-password-form";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  usersUrl = this.variables.hostUrl + '/api/users';
+  usersUrl = environment.apiUrl + '/api/users';
 
   constructor(
     private http: HttpClient,
-    private variables: AppConfig,
     private auth: AuthService,
   ) {}
 
@@ -36,5 +37,17 @@ export class UserService {
 
   getAdmins(): Observable<User[]> {
     return this.http.get<User[]>(`${this.usersUrl}/admins`, this.auth.getAuthHeader())
+  }
+
+  getUserByUsername(username: string): Observable<User>{
+    return this.http.get<User>(`${this.usersUrl}/user/${username}`)
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.usersUrl}/${user.id}`, user, this.auth.getAuthHeader());
+  }
+
+  changePassword(form: ChangePasswordForm): Observable<any> {
+    return this.http.put(`${this.usersUrl}/password`, form, this.auth.getAuthHeader())
   }
 }

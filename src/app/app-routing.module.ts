@@ -12,6 +12,7 @@ import {StatusFormComponent} from "./status-form/status-form.component";
 import {PriorityFormComponent} from "./priority-form/priority-form.component";
 import {StatusComponent} from "./status/status.component";
 import {PriorityComponent} from "./priority/priority.component";
+import {UserPersonalComponent} from "./user-personal/user-personal.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'index'},
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'project/:id', component: ProjectComponent},
   {path: 'project/:id/task', component: TaskFormComponent},
   {path: 'project/:projectId/task/:taskId', component: TaskComponent},
+  {path: 'user', component: UserPersonalComponent},
 ]
 
 @NgModule({
